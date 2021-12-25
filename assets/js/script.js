@@ -6,7 +6,7 @@ var weatherContainerEl = document.querySelector("#weather-container");
 var fiveDayContainerEl = document.querySelector("#five-day-container");
 var apiKey = "68ccdba8bfe95a1522bfe2ca35667316";
 
-
+/// this should be good to go
 var formSubmitHandler = function (event) {
     // prevent page from refreshing
     event.preventDefault();
@@ -29,7 +29,7 @@ var formSubmitHandler = function (event) {
 };
 
 
-
+/// this should be good to go 
 var getCity = function (city) {
     //format the api url
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
@@ -53,19 +53,27 @@ var getCity = function (city) {
         });
 };
 
+/// still in progrss
 var displayWeather = function () {
     //clear old content
-    fiveDayContainerEl.textContent = "";
-    weatherContainerEl.textContent = "";
+    fiveDayContainerEl.textContent = ""; //should this be here or in formSubmit handler?
+    weatherContainerEl.textContent = ""; //should this be here or in formSubmit handler?
+    
 
 }
-var saveSearch = function () {
-
-}
-
-var pastSearch = function () {
+var saveSearch = function () { //sjould be good
     localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+var pastSearch = function () { //in progress
+    
 }
 
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
+
+
+///still need:
+// fiveday conatiner
+//weather container
+///saving cities
