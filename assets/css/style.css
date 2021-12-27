@@ -5,3 +5,12 @@
 .btn {
 
 }
+
+/* .weather-header-container {
+    margin: 50px;
+    border: 4px solid black;
+} */
+
+.header-border {
+    border: 4px solid black;
+}

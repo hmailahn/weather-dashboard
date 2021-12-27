@@ -3,7 +3,11 @@ var cityFormEl = document.querySelector("#city-form")
 var cityInputEl = document.querySelector("#city");
 var searchButtonEl = document.querySelector("#search-btn");
 var weatherContainerEl = document.querySelector("#weather-container");
+var cityDateEl = document.querySelector("#city-date");
+var currentWeatherEl = document.querySelector("#current-weather")
+var headerContainerEl = document.querySelector("header-container");
 var fiveDayContainerEl = document.querySelector("#five-day-container");
+
 var apiKey = "68ccdba8bfe95a1522bfe2ca35667316";
 
 /// this should be good to go
@@ -16,7 +20,7 @@ var formSubmitHandler = function (event) {
 
     if (city) {
         getCity(city);
-        getFiveDay(city);
+        // getFiveDay(city);
 
         //clear old content
         cityInputEl.value = "";
@@ -42,7 +46,7 @@ var getCity = function (city) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    displayWeather(data, city)
+                    displayWeather(city, data)
                 });
             } else {
                 alert("Error: " + response.statusText);
@@ -54,11 +58,21 @@ var getCity = function (city) {
 };
 
 /// still in progrss
-var displayWeather = function () {
+var displayWeather = function (city, data) {
     //clear old content
-    fiveDayContainerEl.textContent = ""; //should this be here or in formSubmit handler?
-    weatherContainerEl.textContent = ""; //should this be here or in formSubmit handler?
-    
+    // fiveDayContainerEl.textContent = ""; //should this be here or in formSubmit handler?
+    // headerContainerEl.textContent = ""; //should this be here or in formSubmit handler?
+    //header container needs City and date, tempm wind, humiditty, and uv index
+    /// current.temp  current.dt current.humidity current.uvi
+    //5 day-forecaset container needs 5 cards, date, icon, temp, wind, humidity
+   
+    ///container, then border, then stuff in container
+   
+    // weatherHeaderContainerEl.className = "weather-header-container";
+    var titleEl = document.createElement("span");
+    titleEl.textContent = name + timezone;
+    cityDateEl.appendChild(titleEl);
+   
 
 }
 var saveSearch = function () { //sjould be good
@@ -66,11 +80,13 @@ var saveSearch = function () { //sjould be good
 }
 
 var pastSearch = function () { //in progress
-    
+    //past search needs to be buttons under search bar of previos searches
 }
 
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
+
+
 
 
 ///still need:
