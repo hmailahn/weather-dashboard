@@ -83,6 +83,11 @@ var pastSearch = function () { //in progress
     //past search needs to be buttons under search bar of previos searches
 }
 
+var getFiveDay = function() {
+    /// this will need to get the lat and lon of the city, make another API call with the lat and the lon of the city, and then can display the 5 day weather
+    // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+}
+
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
 
