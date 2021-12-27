@@ -28,11 +28,28 @@
             </div>
 
             <div class="col-9 weather-container container">
-                <div class="header-container container header-border">
+                <div class="header-container container row header-border">
                     <span id="city-date"></span>
-                    <div id="current-weather"></div>
+                    <div id="current-weather">
+
+                        <div class="col">
+                            <div class="card" style="width: 36vw">
+                                <h5 class="card-title p-2">Date</h5>
+                                <img src="http://openweathermap.org/img/wn/10d@4x.png" class="card-img-top"
+                                    alt="Weather description" />
+                                <div class="card-body">
+                                    <h3 class="card-title">Weather Label</h3>
+                                    <p class="card-text">Temp:</p>
+                                    <p class="card-text">Wind:</p>
+                                    <p class="card-text">Humidity:</p>
+                                    <p class="card-text">UV index:</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
+
                 <h3>5-Day Forecast:</h3>
                 <div id="five-day-container" class="container row">
                     <div class="col">
