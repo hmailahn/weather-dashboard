@@ -44,44 +44,49 @@ var getCity = function (city) {
             //request was successful
             if (response.ok) {
                 console.log(response);
-                response.json().then(function(data) {
+                response.json().then(function (data) {
                     console.log(data);
-                    var lat = data.coord.lat
-                    var lon = data.coord.lon
-                    var apiURLTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
-                     fetch(apiURLTwo)
-                .then(function (response) {
-                    if (response.ok) {
-                        response.json();
-                    }  else {
-                        alert("Error: " + response.statusText);
-                    }
-                }).then(function (data) {
-                    
-                    // getDaily(data);
+                    getDaily(data);
                     displayWeather(data);
-                })
-                    
                 });
-             } else {
+            } else {
                 alert("Error: " + response.statusText);
             }
-        })  
-                     
-              //fetch another API
-                    
-                
+        })
         .catch(function (error) {
             alert("Unable to connect to OpenWeather");
         });
-    
 };
 
 /// use lat and lon to get 5 day forecast
-// var getDaily = function (data) {
+var getDaily = function (data) {
     
-    
-// };
+    var lat = data.coord.lat
+    var lon = data.coord.lon
+
+    console.log(lat);
+    console.log(lon);
+
+    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+    fetch(apiUrlTwo)
+        .then(function (response) {
+            //request was successful
+            if (response.ok) {
+                console.log(response);
+                response.json().then(function (data) {
+                    console.log(data);
+
+                });
+            } else {
+                alert("Error: " + response.statusText);
+            }
+        })
+        .catch(function (error) {
+            alert("Unable to connect to OpenWeather");
+        });
+
+        
+};
 
 var displayWeather = function (data, response) {
  
