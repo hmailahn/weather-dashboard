@@ -3,7 +3,7 @@ var cityFormEl = document.querySelector("#city-form")
 var cityInputEl = document.querySelector("#city");
 var searchButtonEl = document.querySelector("#search-btn");
 var weatherContainerEl = document.querySelector("#weather-container");
-var cityDateEl = document.querySelector("#city-date");
+var currentWeatherEl = document.querySelector("#current-weahter");
 
 var headerContainerEl = document.querySelector("header-container");
 
@@ -47,7 +47,7 @@ var getCity = function (city) {
                 response.json().then(function (data) {
                     console.log(data);
                     getDaily(data);
-                    displayWeather(data);
+                    
                 });
             } else {
                 alert("Error: " + response.statusText);
@@ -75,7 +75,8 @@ var getDaily = function (data) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-
+                    displayWeather();
+                    console.log(data.daily)
                 });
             } else {
                 alert("Error: " + response.statusText);
@@ -90,27 +91,31 @@ var getDaily = function (data) {
 
 var displayWeather = function (data, response) {
  
- var fiveDayContainerEl = document.querySelector("#five-day-container");
- fiveDayContainerEl.innerHTML = response.daily
- .map((day, idx) => { 
-     if (idx <= 2) {
-    return `<div class="col">
-    <div class="card" style="width: 10vw">
-        <h5 class="card-title p-2">Date</h5>
-        <img src="http://openweathermap.org/img/wn/10d@4x.png" class="card-img-top"
-            alt="Weather description" />
-        <div class="card-body">
-            <h3 class="card-title">Weather Label</h3>
-            <p class="card-text">Temp:</p>
-            <p class="card-text">Wind:</p>
-            <p class="card-text">Humidity:</p>
-        </div>
-    </div>
-</div>`;
- }
- })
-.join("");
- console.log(fiveDayContainerEl);
+
+
+
+
+//  var fiveDayContainerEl = document.querySelector("#five-day-container");
+//  fiveDayContainerEl.innerHTML = getDaily(response).daily
+//  .map((day, idx) => { 
+//      if (idx <= 2) {
+//     return `<div class="col">
+//     <div class="card" style="width: 10vw">
+//         <h5 class="card-title p-2">Date</h5>
+//         <img src="http://openweathermap.org/img/wn/10d@4x.png" class="card-img-top"
+//             alt="Weather description" />
+//         <div class="card-body">
+//             <h3 class="card-title">Weather Label</h3>
+//             <p class="card-text">Temp:</p>
+//             <p class="card-text">Wind:</p>
+//             <p class="card-text">Humidity:</p>
+//         </div>
+//     </div>
+// </div>`;
+//  }
+//  })
+// .join("");
+//  console.log(fiveDayContainerEl);
 }
 
 var saveSearch = function () { //sjould be good
