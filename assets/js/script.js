@@ -6,7 +6,7 @@ var weatherContainerEl = document.querySelector("#weather-container");
 var cityDateEl = document.querySelector("#city-date");
 
 var headerContainerEl = document.querySelector("header-container");
-var fiveDayContainerEl = document.querySelector("#five-day-container");
+
 
 var apiKey = "68ccdba8bfe95a1522bfe2ca35667316";
 
@@ -44,54 +44,69 @@ var getCity = function (city) {
             //request was successful
             if (response.ok) {
                 console.log(response);
-                response.json().then(function (data) {
+                response.json().then(function(data) {
                     console.log(data);
-                    getDaily(data);
+                    var lat = data.coord.lat
+                    var lon = data.coord.lon
+                    var apiURLTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+                     fetch(apiURLTwo)
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json();
+                    }  else {
+                        alert("Error: " + response.statusText);
+                    }
+                }).then(function (data) {
+                    
+                    // getDaily(data);
                     displayWeather(data);
+                })
+                    
                 });
-            } else {
+             } else {
                 alert("Error: " + response.statusText);
             }
-        })
+        })  
+                     
+              //fetch another API
+                    
+                
         .catch(function (error) {
             alert("Unable to connect to OpenWeather");
         });
+    
 };
 
 /// use lat and lon to get 5 day forecast
-var getDaily = function (data) {
+// var getDaily = function (data) {
     
-    var lat = data.coord.lat
-    var lon = data.coord.lon
+    
+// };
 
-    console.log(lat);
-    console.log(lon);
-
-    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
-    fetch(apiUrlTwo)
-        .then(function (response) {
-            //request was successful
-            if (response.ok) {
-                console.log(response);
-                response.json().then(function (data) {
-                    console.log(data);
-
-                });
-            } else {
-                alert("Error: " + response.statusText);
-            }
-        })
-        .catch(function (error) {
-            alert("Unable to connect to OpenWeather");
-        });
-
-        
-};
-
-var displayWeather = function () {
- let row = document.querySelector ("#current-weather");
+var displayWeather = function (data, response) {
+ 
+ var fiveDayContainerEl = document.querySelector("#five-day-container");
+ fiveDayContainerEl.innerHTML = response.daily
+ .map((day, idx) => { 
+     if (idx <= 2) {
+    return `<div class="col">
+    <div class="card" style="width: 10vw">
+        <h5 class="card-title p-2">Date</h5>
+        <img src="http://openweathermap.org/img/wn/10d@4x.png" class="card-img-top"
+            alt="Weather description" />
+        <div class="card-body">
+            <h3 class="card-title">Weather Label</h3>
+            <p class="card-text">Temp:</p>
+            <p class="card-text">Wind:</p>
+            <p class="card-text">Humidity:</p>
+        </div>
+    </div>
+</div>`;
+ }
+ })
+.join("");
+ console.log(fiveDayContainerEl);
 }
-
 
 var saveSearch = function () { //sjould be good
     localStorage.setItem("cities", JSON.stringify(cities));
