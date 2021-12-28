@@ -75,7 +75,7 @@ var getDaily = function (data) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    displayWeather();
+                    displayWeather(data);
                     console.log(data.daily)
                 });
             } else {
@@ -91,6 +91,7 @@ var getDaily = function (data) {
 
 var displayWeather = function (data, response) {
  
+console.log(data.daily);
 
 
 
