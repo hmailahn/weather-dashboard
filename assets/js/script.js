@@ -67,7 +67,7 @@ var getDaily = function (data) {
     console.log(lat);
     console.log(lon);
 
-    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
     fetch(apiUrlTwo)
         .then(function (response) {
             //request was successful
@@ -91,25 +91,25 @@ var getDaily = function (data) {
 
 var displayWeather = function (data, response) {
  
-console.log(data.daily);
-
-
 
 //// got this to work, still need to edit, we are getting somewhere
  var fiveDayContainerEl = document.querySelector("#five-day-container");
  fiveDayContainerEl.innerHTML = data.daily
  .map((day, idx) => { 
-     if (idx <= 2) {
+     if (idx <= 4) {
+         var dt = new Date(day.dt * 1000); 
     return `<div class="col">
     <div class="card" style="width: 10vw">
-        <h5 class="card-title p-2">Date</h5>
-        <img src="http://openweathermap.org/img/wn/10d@4x.png" class="card-img-top"
-            alt="Weather description" />
+        <h5 class="card-title p-2">${dt.toDateString()}</h5>
+        <img src="http://openweathermap.org/img/wn/${
+            day.weather[0].icon
+          }@4x.png" class="card-img-top"
+            alt=""${day.weather[0].description}" />
         <div class="card-body">
-            <h3 class="card-title">Weather Label</h3>
-            <p class="card-text">Temp:</p>
-            <p class="card-text">Wind:</p>
-            <p class="card-text">Humidity:</p>
+            <h3 class="card-title"> ${day.weather[0].main}</h3>
+            <p class="card-text">Temp: ${day.temp.day} \u00B0F</p>
+            <p class="card-text">Wind: ${day.wind_speed} m/s</p>
+            <p class="card-text">Humidity: ${day.humidity} %</p>
         </div>
     </div>
 </div>`;
