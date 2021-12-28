@@ -6,7 +6,9 @@ var weatherContainerEl = document.querySelector("#weather-container");
 var currentWeatherEl = document.querySelector("#current-weather");
 var historyEl = document.querySelector("#history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+var fiveDayContainerEl = document.querySelector("#five-day-container");
 var headerContainerEl = document.querySelector("header-container");
+
 
 
 var apiKey = "68ccdba8bfe95a1522bfe2ca35667316";
@@ -21,7 +23,7 @@ var formSubmitHandler = function (event) {
 
     if (city) {
         getCity(city);
-        // getFiveDay(city);
+        
 
         //clear old content
         cityInputEl.value = "";
@@ -160,7 +162,7 @@ var saveSearch = function (city) {
     
 }
 
-var pastSearch = function () { //in progress
+var pastSearch = function (city) { //in progress
     //past search needs to be buttons under search bar of previos searches
     historyEl.innerHTML = "";
     for (var i = 0; i < searchHistory.length; i++) {
@@ -170,7 +172,15 @@ var pastSearch = function () { //in progress
        historyItem.setAttribute("class", "form-control d-block bg-white");
        historyItem.setAttribute("value", searchHistory[i]);
        historyItem.addEventListener("click", function() {
-           getCity(historyItem.value);
+           
+            //clear old content
+        fiveDayContainerEl.innerHTML = "";
+        currentWeatherEl.innerHTML = "";
+
+        historyItem = city;
+           getCity(city);
+
+          
        })
        historyEl.appendChild(historyItem);
     }
