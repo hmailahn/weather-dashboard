@@ -95,7 +95,7 @@ console.log(data.daily);
 
 
 
-
+//// got this to work, still need to edit, we are getting somewhere
  var fiveDayContainerEl = document.querySelector("#five-day-container");
  fiveDayContainerEl.innerHTML = data.daily
  .map((day, idx) => { 
