@@ -3,7 +3,7 @@ var cityFormEl = document.querySelector("#city-form")
 var cityInputEl = document.querySelector("#city");
 var searchButtonEl = document.querySelector("#search-btn");
 var weatherContainerEl = document.querySelector("#weather-container");
-var currentWeatherEl = document.querySelector("#current-weahter");
+var currentWeatherEl = document.querySelector("#current-weather");
 
 var headerContainerEl = document.querySelector("header-container");
 
@@ -75,8 +75,9 @@ var getDaily = function (data) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    displayWeather(data);
+                    getFiveDay(data);
                     console.log(data.daily)
+                    displayWeather(data);
                 });
             } else {
                 alert("Error: " + response.statusText);
@@ -89,8 +90,33 @@ var getDaily = function (data) {
         
 };
 
-var displayWeather = function (data, response) {
- 
+var displayWeather = function (data) {
+    var currentWeatherEl = document.querySelector("#current-weather");
+    currentWeatherEl.innerHTML = data.daily
+    .map((day, idx) => { 
+        if (idx <= 0) {
+            var dt = new Date(day.dt * 1000); 
+            return `<div class="col">
+            <div class="card" style="width: 36vw">
+                <h5 class="card-title p-2">${dt.toDateString()}</h5>
+                <img src="http://openweathermap.org/img/wn/${
+                    day.weather[0].icon
+                  }@4x.png" class="card-img-top"
+                    alt="${day.weather[0].description}" />
+                <div class="card-body">
+                    <h3 class="card-title">${day.weather[0].main}</h3>
+                    <p class="card-text">Temp: ${day.temp.day} \u00B0F</p>
+                    <p class="card-text">Wind: ${day.wind_speed} m/s</p>
+                    <p class="card-text">Humidity: ${day.humidity} %</p>
+                    <p class="card-text">UV index: ${day.uvi}</p>
+                </div>
+            </div>
+        </div>`
+}
+    });
+}
+
+var getFiveDay = function (data) {
 
 //// got this to work, still need to edit, we are getting somewhere
  var fiveDayContainerEl = document.querySelector("#five-day-container");
@@ -127,10 +153,6 @@ var pastSearch = function () { //in progress
     //past search needs to be buttons under search bar of previos searches
 }
 
-var getFiveDay = function () {
-    /// this will need to get the lat and lon of the city, make another API call with the lat and the lon of the city, and then can display the 5 day weather
-    // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-}
 
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
@@ -139,6 +161,5 @@ cityFormEl.addEventListener("submit", formSubmitHandler);
 
 
 ///still need:
-// fiveday conatiner
-//weather container
+
 ///saving cities
