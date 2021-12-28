@@ -97,7 +97,8 @@ var displayWeather = function (data) {
         if (idx <= 0) {
             var dt = new Date(day.dt * 1000); 
             return `<div class="col">
-            <div class="card" style="width: 36vw">
+            <div class="card border-0" style="width: 
+            30vw">
                 <h5 class="card-title p-2">${dt.toDateString()}</h5>
                 <img src="http://openweathermap.org/img/wn/${
                     day.weather[0].icon
@@ -114,6 +115,8 @@ var displayWeather = function (data) {
         </div>`
 }
     });
+
+
 }
 
 var getFiveDay = function (data) {
@@ -125,7 +128,7 @@ var getFiveDay = function (data) {
      if (idx <= 4) {
          var dt = new Date(day.dt * 1000); 
     return `<div class="col">
-    <div class="card" style="width: 10vw">
+    <div class="card text-white five-day-card h-100" style="width: 10vw">
         <h5 class="card-title p-2">${dt.toDateString()}</h5>
         <img src="http://openweathermap.org/img/wn/${
             day.weather[0].icon
@@ -144,6 +147,9 @@ var getFiveDay = function (data) {
 .join("");
  console.log(fiveDayContainerEl);
 }
+
+
+
 
 var saveSearch = function () { //sjould be good
     localStorage.setItem("cities", JSON.stringify(cities));
