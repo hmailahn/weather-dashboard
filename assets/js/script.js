@@ -4,7 +4,8 @@ var cityInputEl = document.querySelector("#city");
 var searchButtonEl = document.querySelector("#search-btn");
 var weatherContainerEl = document.querySelector("#weather-container");
 var currentWeatherEl = document.querySelector("#current-weather");
-
+var historyEl = document.querySelector("#history");
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var headerContainerEl = document.querySelector("header-container");
 
 
@@ -28,7 +29,7 @@ var formSubmitHandler = function (event) {
     } else {
         alert("Please enter a city");
     }
-    saveSearch();
+    saveSearch(city);
     pastSearch(city);
 };
 
@@ -151,17 +152,38 @@ var getFiveDay = function (data) {
 
 
 
-var saveSearch = function () { //sjould be good
-    localStorage.setItem("cities", JSON.stringify(cities));
+var saveSearch = function (city) { 
+    var searchTerm = city;
+    searchHistory.push(searchTerm);
+    localStorage.setItem("search", JSON.stringify(searchHistory));
+    console.log(searchTerm)
+    
 }
 
 var pastSearch = function () { //in progress
     //past search needs to be buttons under search bar of previos searches
+    historyEl.innerHTML = "";
+    for (var i = 0; i < searchHistory.length; i++) {
+       var historyItem = document.createElement("input");
+       historyItem.setAttribute("type", "text");
+       historyItem.setAttribute("readonly", true);
+       historyItem.setAttribute("class", "form-control d-block bg-white");
+       historyItem.setAttribute("value", searchHistory[i]);
+       historyItem.addEventListener("click", function() {
+           getCity(historyItem.value);
+       })
+       historyEl.appendChild(historyItem);
+    }
+
+
 }
+
+
 
 
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
+pastSearch();
 
 
 
