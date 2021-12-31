@@ -148,17 +148,16 @@ var getFiveDay = function (data) {
 var saveSearch = function (city) {
     var searchTerm = city;
       //if item is in storage, don't save.
-      searchHistory.push(searchTerm);
-      
-      localStorage.setItem("search", JSON.stringify(searchHistory));
-      console.log(searchTerm);
+    
 
-    if (JSON.parse(localStorage.getItem("search")) === null) {
+    
         searchHistory.push(searchTerm);
       
         localStorage.setItem("search", JSON.stringify(searchHistory));
         console.log(searchTerm);
-    }
+        pastSearch();
+    
+   
 }
       
 
