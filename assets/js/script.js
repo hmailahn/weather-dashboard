@@ -91,7 +91,7 @@ var getDaily = function (data) {
         });
 };
 
-var displayWeather = function (data) {
+var displayWeather = function (data, city) {
     var currentWeatherEl = document.querySelector("#current-weather");
     currentWeatherEl.innerHTML = data.daily
         .map((day, idx) => {
@@ -147,11 +147,20 @@ var getFiveDay = function (data) {
 
 var saveSearch = function (city) {
     var searchTerm = city;
-    //if item is in storage, don't save.
-    searchHistory.push(searchTerm);
-    localStorage.setItem("search", JSON.stringify(searchHistory));
-    console.log(searchTerm);
+      //if item is in storage, don't save.
+      searchHistory.push(searchTerm);
+      
+      localStorage.setItem("search", JSON.stringify(searchHistory));
+      console.log(searchTerm);
+
+    if (JSON.parse(localStorage.getItem("search")) === null) {
+        searchHistory.push(searchTerm);
+      
+        localStorage.setItem("search", JSON.stringify(searchHistory));
+        console.log(searchTerm);
+    }
 }
+      
 
 var pastSearch = function () {
     //past search needs to be buttons under search bar of previos searches
@@ -173,7 +182,9 @@ var pastSearch = function () {
     }
 }
 
-
+// var checkLocalStorage = function () {
+//     var cities = JSON.parse(localStorage.getItem("search")) || [];
+// }
 
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
