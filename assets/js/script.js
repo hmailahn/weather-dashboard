@@ -166,15 +166,21 @@ var pastSearch = function () { //in progress
     for (var i = 0; i < searchHistory.length; i++) {
         var historyItem = document.createElement("input");
         historyItem.setAttribute("type", "text");
-        historyItem.setAttribute("readonly", true);
         historyItem.setAttribute("class", "form-control d-block bg-white w-75 mt-1 md-1");
         historyItem.setAttribute("value", searchHistory[i]);
-        historyItem.addEventListener("click", function () {
+        historyItem.addEventListener("click", function (event) {
+            console.log(event.target.value);
+            ///click on the history event
+            //get value of that city, pass it back to getcity 
+            ///clear old content, set out content for clicked city
+             // clear old content
+             fiveDayContainerEl.innerHTML = "";
+             currentWeatherEl.innerHTML = "";
+            city = event.target.value;
+          getCity(city);
+console.log(city);
 
-
-            //clear old content
-            // fiveDayContainerEl.innerHTML = "";
-            // currentWeatherEl.innerHTML = "";
+           
 
         })
         historyEl.appendChild(historyItem);
@@ -191,6 +197,3 @@ pastSearch();
 
 
 
-///still need:
-
-///saving cities
