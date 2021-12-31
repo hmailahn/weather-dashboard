@@ -13,7 +13,7 @@ var city = [];
 
 var apiKey = "68ccdba8bfe95a1522bfe2ca35667316";
 
-/// this should be good to go
+
 var formSubmitHandler = function (event) {
     // prevent page from refreshing
     event.preventDefault();
@@ -23,7 +23,6 @@ var formSubmitHandler = function (event) {
 
     if (city) {
         getCity(city);
-
 
         //clear old content
         cityInputEl.value = "";
@@ -36,7 +35,7 @@ var formSubmitHandler = function (event) {
 };
 
 
-/// this should be good to go 
+
 var getCity = function (city) {
     //format the api url
 
@@ -90,8 +89,6 @@ var getDaily = function (data) {
         .catch(function (error) {
             alert("Unable to connect to OpenWeather");
         });
-
-
 };
 
 var displayWeather = function (data) {
@@ -118,13 +115,9 @@ var displayWeather = function (data) {
         </div>`
             }
         });
-
-
 }
 
 var getFiveDay = function (data) {
-
-    //// got this to work, still need to edit, we are getting somewhere
     var fiveDayContainerEl = document.querySelector("#five-day-container");
     fiveDayContainerEl.innerHTML = data.daily
         .map((day, idx) => {
@@ -154,39 +147,30 @@ var getFiveDay = function (data) {
 
 var saveSearch = function (city) {
     var searchTerm = city;
+    //if item is in storage, don't save.
     searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
-    console.log(searchTerm)
-
+    console.log(searchTerm);
 }
 
-var pastSearch = function () { //in progress
+var pastSearch = function () {
     //past search needs to be buttons under search bar of previos searches
     historyEl.innerHTML = "";
     for (var i = 0; i < searchHistory.length; i++) {
         var historyItem = document.createElement("input");
         historyItem.setAttribute("type", "text");
+        historyItem.setAttribute("readonly", true);
         historyItem.setAttribute("class", "form-control d-block bg-white w-75 mt-1 md-1");
         historyItem.setAttribute("value", searchHistory[i]);
         historyItem.addEventListener("click", function (event) {
             console.log(event.target.value);
-            ///click on the history event
-            //get value of that city, pass it back to getcity 
-            ///clear old content, set out content for clicked city
-             // clear old content
-             fiveDayContainerEl.innerHTML = "";
-             currentWeatherEl.innerHTML = "";
+            fiveDayContainerEl.innerHTML = "";
+            currentWeatherEl.innerHTML = "";
             city = event.target.value;
-          getCity(city);
-console.log(city);
-
-           
-
+            getCity(city);
         })
         historyEl.appendChild(historyItem);
     }
-
-
 }
 
 
@@ -195,5 +179,8 @@ console.log(city);
 cityFormEl.addEventListener("submit", formSubmitHandler);
 pastSearch();
 
+
+
+////need to figure out how to search city and not save city that has already been saved
 
 
