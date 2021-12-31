@@ -8,7 +8,7 @@ var historyEl = document.querySelector("#history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var fiveDayContainerEl = document.querySelector("#five-day-container");
 var headerContainerEl = document.querySelector("header-container");
-
+var city = [];
 
 
 var apiKey = "68ccdba8bfe95a1522bfe2ca35667316";
@@ -23,7 +23,7 @@ var formSubmitHandler = function (event) {
 
     if (city) {
         getCity(city);
-        
+
 
         //clear old content
         cityInputEl.value = "";
@@ -39,6 +39,7 @@ var formSubmitHandler = function (event) {
 /// this should be good to go 
 var getCity = function (city) {
     //format the api url
+
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
     //make a get request to url
@@ -50,7 +51,7 @@ var getCity = function (city) {
                 response.json().then(function (data) {
                     console.log(data);
                     getDaily(data);
-                    
+
                 });
             } else {
                 alert("Error: " + response.statusText);
@@ -63,7 +64,7 @@ var getCity = function (city) {
 
 /// use lat and lon to get 5 day forecast
 var getDaily = function (data) {
-    
+
     var lat = data.coord.lat
     var lon = data.coord.lon
 
@@ -90,22 +91,21 @@ var getDaily = function (data) {
             alert("Unable to connect to OpenWeather");
         });
 
-        
+
 };
 
 var displayWeather = function (data) {
     var currentWeatherEl = document.querySelector("#current-weather");
     currentWeatherEl.innerHTML = data.daily
-    .map((day, idx) => { 
-        if (idx <= 0) {
-            var dt = new Date(day.dt * 1000); 
-            return `<div class="col">
+        .map((day, idx) => {
+            if (idx <= 0) {
+                var dt = new Date(day.dt * 1000);
+                return `<div class="col">
             <div class="card border-0" style="width: 
             30vw">
                 <h5 class="card-title p-2">${dt.toDateString()}</h5>
-                <img src="http://openweathermap.org/img/wn/${
-                    day.weather[0].icon
-                  }@4x.png" class="card-img-top"
+                <img src="http://openweathermap.org/img/wn/${day.weather[0].icon
+                    }@4x.png" class="card-img-top"
                     alt="${day.weather[0].description}" />
                 <div class="card-body">
                     <h3 class="card-title">${day.weather[0].main}</h3>
@@ -116,26 +116,25 @@ var displayWeather = function (data) {
                 </div>
             </div>
         </div>`
-}
-    });
+            }
+        });
 
 
 }
 
 var getFiveDay = function (data) {
 
-//// got this to work, still need to edit, we are getting somewhere
- var fiveDayContainerEl = document.querySelector("#five-day-container");
- fiveDayContainerEl.innerHTML = data.daily
- .map((day, idx) => { 
-     if (idx <= 4) {
-         var dt = new Date(day.dt * 1000); 
-    return `<div class="col">
+    //// got this to work, still need to edit, we are getting somewhere
+    var fiveDayContainerEl = document.querySelector("#five-day-container");
+    fiveDayContainerEl.innerHTML = data.daily
+        .map((day, idx) => {
+            if (idx <= 4) {
+                var dt = new Date(day.dt * 1000);
+                return `<div class="col">
     <div class="card text-white five-day-card h-100" style="width: 10vw">
         <h5 class="card-title p-2">${dt.toDateString()}</h5>
-        <img src="http://openweathermap.org/img/wn/${
-            day.weather[0].icon
-          }@4x.png" class="card-img-top"
+        <img src="http://openweathermap.org/img/wn/${day.weather[0].icon
+                    }@4x.png" class="card-img-top"
             alt=""${day.weather[0].description}" />
         <div class="card-body">
             <h3 class="card-title"> ${day.weather[0].main}</h3>
@@ -145,44 +144,40 @@ var getFiveDay = function (data) {
         </div>
     </div>
 </div>`;
- }
- })
-.join("");
- console.log(fiveDayContainerEl);
+            }
+        })
+        .join("");
+    console.log(fiveDayContainerEl);
 }
 
 
 
-
-var saveSearch = function (city) { 
+var saveSearch = function (city) {
     var searchTerm = city;
     searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
     console.log(searchTerm)
-    
+
 }
 
-var pastSearch = function (city) { //in progress
+var pastSearch = function () { //in progress
     //past search needs to be buttons under search bar of previos searches
     historyEl.innerHTML = "";
     for (var i = 0; i < searchHistory.length; i++) {
-       var historyItem = document.createElement("input");
-       historyItem.setAttribute("type", "text");
-       historyItem.setAttribute("readonly", true);
-       historyItem.setAttribute("class", "form-control d-block bg-white");
-       historyItem.setAttribute("value", searchHistory[i]);
-       historyItem.addEventListener("click", function() {
-           
+        var historyItem = document.createElement("input");
+        historyItem.setAttribute("type", "text");
+        historyItem.setAttribute("readonly", true);
+        historyItem.setAttribute("class", "form-control d-block bg-white w-75 mt-1 md-1");
+        historyItem.setAttribute("value", searchHistory[i]);
+        historyItem.addEventListener("click", function () {
+
+
             //clear old content
-        fiveDayContainerEl.innerHTML = "";
-        currentWeatherEl.innerHTML = "";
+            // fiveDayContainerEl.innerHTML = "";
+            // currentWeatherEl.innerHTML = "";
 
-        historyItem = city;
-           getCity(city);
-
-          
-       })
-       historyEl.appendChild(historyItem);
+        })
+        historyEl.appendChild(historyItem);
     }
 
 
@@ -190,11 +185,9 @@ var pastSearch = function (city) { //in progress
 
 
 
-
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
 pastSearch();
-
 
 
 

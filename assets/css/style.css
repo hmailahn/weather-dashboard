@@ -4,9 +4,16 @@
 } */
 .btn {
 padding: 10px;
-margin: 10px 0 0 0;
-width: 75%;
+margin: 10px 0 5px 0;
+width: 100%;
 }
+
+.bottom-border {
+    border-bottom: 3px solid gray;
+    width: 75%;
+}
+
+
 
 /* .weather-header-container {
     margin: 50px;
