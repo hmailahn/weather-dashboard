@@ -149,15 +149,21 @@ var saveSearch = function (city) {
     var searchTerm = city;
       //if item is in storage, don't save.
     
-
-    
+    //   if (localStorage.getItem("search", searchTerm) === null) {
         searchHistory.push(searchTerm);
       
         localStorage.setItem("search", JSON.stringify(searchHistory));
         console.log(searchTerm);
         pastSearch();
     
+//       }
+// else {
+     
+        //    console.log("this exisits");
+       
+    
    
+
 }
       
 
@@ -182,7 +188,12 @@ var pastSearch = function () {
 }
 
 // var checkLocalStorage = function () {
-//     var cities = JSON.parse(localStorage.getItem("search")) || [];
+//     var cities = JSON.parse(localStorage.getItem("search"))
+//     var cityExisits = false
+//     if (cities) {
+//         var cityData = JSON.parse(cities)
+//         //check if item 
+//     }
 // }
 
 //add event listeners to forms
