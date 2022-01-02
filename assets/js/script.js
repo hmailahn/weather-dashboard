@@ -176,7 +176,7 @@ var pastSearch = function () {
         var historyItem = document.createElement("input");
         historyItem.setAttribute("type", "text");
         historyItem.setAttribute("readonly", true);
-        historyItem.setAttribute("class", "form-control d-block bg-white w-75 mt-1 md-1");
+        historyItem.setAttribute("class", "form-control d-block bg-gray w-75 mt-1 md-1");
         historyItem.setAttribute("value", searchHistory[i]);
         historyItem.addEventListener("click", function (event) {
             console.log(event.target.value);
