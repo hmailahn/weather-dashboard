@@ -54,6 +54,7 @@ var getCity = function (city) {
                 });
             } else {
                 alert("Error: " + response.statusText);
+                getCity();
             }
         })
         .catch(function (error) {
@@ -84,6 +85,7 @@ var getDaily = function (data) {
                 });
             } else {
                 alert("Error: " + response.statusText);
+            
             }
         })
         .catch(function (error) {
