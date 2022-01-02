@@ -14,3 +14,6 @@ TO USE TO WEATHER DASHBOARD, TYPE IN A CITY IN THE SEARCH BAR AND HIT ENTER OR C
 * OPENWEATHER ONE CALL API
 
 ## WEBSITE
+HERE IS A SCREENSHOT OF THE FINISHED PRODUCT : ![screenshot](https://github.com/hmailahn/weather-dashboard/blob/main/assets/images/screenshot.png)
+HERE IS A LINK TO THE DEPLOYED PRODUCT : https://hmailahn.github.io/weather-dashboard/
+HERE IS A LINK TO THE REPOSITORY : https://github.com/hmailahn/weather-dashboard
