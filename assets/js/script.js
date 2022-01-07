@@ -189,14 +189,6 @@ var pastSearch = function () {
     }
 }
 
-// var checkLocalStorage = function () {
-//     var cities = JSON.parse(localStorage.getItem("search"))
-//     var cityExisits = false
-//     if (cities) {
-//         var cityData = JSON.parse(cities)
-//         //check if item 
-//     }
-// }
 
 //add event listeners to forms
 cityFormEl.addEventListener("submit", formSubmitHandler);
